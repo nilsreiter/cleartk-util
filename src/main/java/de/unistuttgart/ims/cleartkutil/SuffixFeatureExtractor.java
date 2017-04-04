@@ -19,6 +19,7 @@ public class SuffixFeatureExtractor<T extends Annotation> implements FeatureExtr
 
 	public List<Feature> extract(JCas view, T focusAnnotation) throws CleartkExtractorException {
 		String surf = focusAnnotation.getCoveredText();
-		return Arrays.asList(new Feature("Suffix_" + suf, Character.isUpperCase(surf.charAt(0)) && surf.endsWith(suf)));
+		boolean b = Character.isUpperCase(surf.charAt(0)) && surf.endsWith(suf);
+		return Arrays.asList(new Feature("Suffix_" + suf, String.valueOf(b)));
 	}
 }
