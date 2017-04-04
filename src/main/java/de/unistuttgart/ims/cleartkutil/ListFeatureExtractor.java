@@ -20,7 +20,11 @@ public class ListFeatureExtractor<T extends Annotation> implements FeatureExtrac
 	}
 
 	public List<Feature> extract(JCas view, T focusAnnotation) throws CleartkExtractorException {
-		return Arrays.asList(new Feature(fName, strList.contains(focusAnnotation.getCoveredText().toLowerCase())));
+		boolean fValue = false;
+		if (strList.contains(focusAnnotation.getCoveredText()))
+			fValue = true;
+		Feature f = new Feature(fName, String.valueOf(fValue));
+		return Arrays.asList(f);
 	}
 
 }
