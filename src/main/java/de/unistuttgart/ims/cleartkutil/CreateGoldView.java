@@ -1,5 +1,8 @@
 package de.unistuttgart.ims.cleartkutil;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.uima.UIMAException;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -48,12 +51,11 @@ public class CreateGoldView extends JCasAnnotator_ImplBase {
 		}
 		goldView.setDocumentText(jcas.getDocumentText());
 
-		int typeIndexId = -1;
+		Set<Annotation> toRemove = new HashSet<Annotation>();
 		for (Annotation a : JCasUtil.select(jcas, annotationType)) {
-			typeIndexId = a.getTypeIndexID();
 			try {
 				Annotation newAnnotation = AnnotationFactory.createAnnotation(goldView, a.getBegin(), a.getEnd(),
-						annotationType);
+						a.getClass());
 				for (Feature f : a.getType().getFeatures()) {
 					if (f.getRange().equals("uima.cas.String")) {
 						newAnnotation.setStringValue(f, a.getStringValue(f));
@@ -64,9 +66,11 @@ public class CreateGoldView extends JCasAnnotator_ImplBase {
 			} catch (UIMAException e) {
 				e.printStackTrace();
 			}
+			toRemove.add(a);
 		}
-		if (typeIndexId != -1)
-			jcas.removeAllExcludingSubtypes(typeIndexId);
+		for (Annotation a : toRemove) {
+			a.removeFromIndexes();
+		}
 
 	}
 
