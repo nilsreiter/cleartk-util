@@ -53,7 +53,6 @@ public class CreateGoldView extends JCasAnnotator_ImplBase {
 
 		Set<Annotation> toRemove = new HashSet<Annotation>();
 		for (Annotation a : JCasUtil.select(jcas, annotationType)) {
-			System.err.println(a);
 			try {
 				Annotation newAnnotation = AnnotationFactory.createAnnotation(goldView, a.getBegin(), a.getEnd(),
 						a.getClass());
@@ -67,7 +66,6 @@ public class CreateGoldView extends JCasAnnotator_ImplBase {
 						newAnnotation.setDoubleValue(f, a.getDoubleValue(f));
 					}
 				}
-				System.err.println(newAnnotation);
 
 			} catch (UIMAException e) {
 				e.printStackTrace();
