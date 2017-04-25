@@ -21,8 +21,9 @@ public class CountFeatureExtractor<T extends Annotation> implements FeatureExtra
 
 	public List<Feature> extract(JCas view, T focusAnnotation) throws CleartkExtractorException {
 		Feature f = new Feature();
-		f.setValue(JCasUtil.selectCovered(goalClass, focusAnnotation));
-		f.setName("count-" + goalClass.getSimpleName());
+		int c = JCasUtil.selectCovered(goalClass, focusAnnotation).size();
+		f.setValue(c);
+		f.setName("count-" + goalClass.getSimpleName() + "-" + c);
 		return Arrays.asList(f);
 	}
 
