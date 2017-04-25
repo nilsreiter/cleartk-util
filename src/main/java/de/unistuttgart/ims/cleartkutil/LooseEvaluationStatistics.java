@@ -131,7 +131,7 @@ public class LooseEvaluationStatistics<ANNOTATION_TYPE extends Annotation, BASE_
 		return prStat.toString();
 	}
 
-	class PRStat {
+	public class PRStat {
 		Bag<OUTCOME_TYPE> truePositives = new HashBag<OUTCOME_TYPE>();
 		Bag<OUTCOME_TYPE> falsePositives = new HashBag<OUTCOME_TYPE>();
 		Bag<OUTCOME_TYPE> falseNegatives = new HashBag<OUTCOME_TYPE>();
@@ -316,7 +316,7 @@ public class LooseEvaluationStatistics<ANNOTATION_TYPE extends Annotation, BASE_
 		return prStat.fn();
 	}
 
-	private PRStat getPrStat() {
+	public PRStat getPrStat() {
 		return prStat;
 	}
 }
